@@ -1,0 +1,18 @@
+<h1>Upload your cool images here!</h1>
+{{# if success }}
+  <div class="alert alert-success">
+    <strong>Success!</strong> Indicates a successful or positive action.
+  </div>
+{{ else }}
+  {{# if error }}
+    <div class="alert alert-danger">
+      <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+    </div>
+  {{/if}}
+{{/if}}
+<p>Choose a file from your documents and click the upload button</p>
+
+<form action="/upload" method="post" enctype="multipart/form-data" id="form-upload">
+  <input type="file" name="image" accept="image/*">
+  <input type="submit" value="Upload!" class="btn btn-default">
+</form>
