@@ -1,32 +1,45 @@
-<h1>Welcome to the unamed app that uses Swift</h1>
+<div class="index">
 
-<p>There are {{images.length}}
-<div class="row">
-  <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-</div>
+    <h1>Welcome an awesome App</h1>
 
-<div id="images-list" class="">
 
-<div class="row">
-{{#each images}}
+    {{# if images.length }}
+    <p>There are {{ images.length }} images</p>
 
-  <div class="col-xs-6 col-sm-4 col-md-3">
-    <a href="/image/{{this.id}}">
-      <img src="{{this.path}}/{{this.file_name}}" style="height: auto; width: 100%;">
-    </a>
+    {{ else }}
+    <div class="alert alert-warning">
+      <p>There are no images in our app, <a href="/upload">why don't we start uploading one?</a></p>
+    </div>
+    {{/if}}
+
+
+  <div class="row">
+    <div class="pull-right">
+      <div class="col-xs-12">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Filter Images
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="/?filter=all">Show All</a></li>
+            <li><a href="/?filter=gif">Show Gif</a></li>
+            <li><a href="/?filter=static">Show Static</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-{{/each}}
-</div>
+
+  <div id="images-list" class="row">
+    {{#each images}}
+      <div class="col-xs-12 col-sm-4 col-md-3">
+        <a href="/image/{{this.id}}" class="thumbnail">
+          <span style="background: url({{this.path}}/{{this.file_name}}) no-repeat center; background-size: cover; height: 180px; display: block;"></span>
+
+        </a>
+      </div>
+    {{/each}}
+  </div>
+
 </div>

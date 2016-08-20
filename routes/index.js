@@ -7,8 +7,16 @@ module.exports = function() {
   app.get('/', function(request, response, next) {
     var query = '',
         params = {};
-    query = "SELECT * FROM images ORDER BY created_at DESC"
-    db.all(query, function(error, rows) {
+    query = "SELECT * FROM images WHERE category_id IN ($category_id) ORDER BY created_at DESC";
+    if (request.query.filter == 'gif') {
+      params = {$category_id: 1};
+    } else if (request.query.filter == 'static') {
+      params = {$category_id: 2};
+    } else {
+      query = "SELECT * FROM images WHERE category_id ORDER BY created_at DESC";
+    }
+
+    db.all(query, params, function(error, rows) {
       if (error) {
 
       } else {

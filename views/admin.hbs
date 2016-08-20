@@ -1,0 +1,41 @@
+<div class="admin">
+  <h1>Admin View</h1>
+
+  <form action="/admin" method="post">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Category</th>
+          <th>Storage</th>
+          <th>Path</th>
+          <th>Size</th>
+          <th>Width</th>
+          <th>Height</th>
+          <th>Created At</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each images}}
+        <tr>
+          <td><a href="/image/{{ this.id }}">{{ this.id }}</a></td>
+          <td>{{ this.category_name }}</td>
+          <td>{{ this.storage_backend_name }}</td>
+          <td><a href="{{ this.path }}/{{ this.file_name }}">{{ this.path }}/{{ this.file_name }}</a></td>
+          <td>{{ this.size }}</td>
+          <td>{{ this.width }}</td>
+          <td>{{ this.height }}</td>
+          <td>{{ this.created_at }}</td>
+          <td><button type="submit" class="btn btn-danger" name="imageId" value="{{ this.id }}">Delete</button></td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+    <div class="text-center">
+      <button type="submit" class="btn btn-danger btn-lg" name="panic" value="true">DELETE ALL</button>
+    </div>
+  </form>
+
+
+</div>

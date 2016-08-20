@@ -3,13 +3,22 @@
 </div>
 
 <div class="row">
-  <img src="/{{ image.path }}/{{ image.file_name }}">
+  <img src="/{{ image.path }}/{{ image.file_name }}" style="height: auto; width: 100%;">
 </div>
 
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-body">
-      Basic panel example
+      <dl>
+        <dt>URL</dt>
+        <dd>{{image.path}}/{{image.file_name}}</dd>
+        <dt>Size</dt>
+        <dd>{{ image.size }} bytes</dd>
+        <dt>Mime Type</dt>
+        <dd>{{ image.mime_type }}</dd>
+        <dt>Created at<dt>
+        <dd>{{ image.created_at }}</dd>
+      </dl>
     </div>
   </div>
 </div>

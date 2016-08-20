@@ -11,7 +11,7 @@ var express = require('express'),
     sqlite3 = require('sqlite3').verbose(),
     db = new sqlite3.Database('demo.db'),
     exphbs = require('express-handlebars'),
-    sass = require('node-sass');
+    sassMiddleware = require('node-sass-middleware');
 
 
 var app = express();
@@ -90,6 +90,7 @@ app.use('/categories', categories);
 app.use('/image', image);
 app.use('/upload', upload);
 app.use('/admin', admin);
+
 app.use('/public', express.static('public'));
 app.listen(port, function() {
   console.log('Running...');
