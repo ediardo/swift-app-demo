@@ -15,8 +15,9 @@ module.exports = function() {
   // create our client with your openstack credentials
   var client = pkgcloud.storage.createClient({
     provider: 'openstack',
-    username: 'eddie.ramirez',
-
+    username: '',
+    password: '',
+    authUrl: 'https://cloud1.osic.org:5000',
     region: 'RegionOne'
   });
 
@@ -50,7 +51,27 @@ module.exports = function() {
     category_id = (request.file.mimetype.includes('gif') ? 1 : 2);
     dimensions = imageSize(tmp_path);
 
-    fs.rename(tmp_path, 'public/uploads/' + file_name);
+    //fs.rename(tmp_path, 'public/uploads/' + file_name);
+
+    var readStream = fs.createReadStream(tmp_path);
+    var writeStream = client.upload({
+       container: 'eddie',
+       remote: file_name
+     });
+
+     writeStream.on('error', function(err) {
+       console.log('Hubo error');
+       console.log(err);
+   // handle your error case
+      });
+
+     writeStream.on('success', function(file){
+       console.log('Exito');
+       console.log(file);
+       // success, file will be a File model
+     });
+
+ readStream.pipe(writeStream);
 
     dimensions = imageSize(tmp_path);
 
@@ -83,10 +104,10 @@ module.exports = function() {
                   )",
           params = {
             $category_id: category_id,
-            $storage_backend_id: 1,
+            $storage_backend_id: 2,
             $original_name: original_name,
             $display_name: display_name,
-            $path: 'public/uploads',
+            $path: 'https://cloud1.osic.org:8080/v1/AUTH_0a74f780eebd44a3993e9d778aaec2f0/eddie',
             $file_name: file_name,
             $size: size,
             $mime_type: mime_type,
